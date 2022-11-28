@@ -10,9 +10,14 @@
     <button id="productButton">Ver productos</button>
     <h1>Carga de producto</h1>
     <form action="/productos" method="post">
-      <input type="text" placeholder="Nombre" name="name" /><br />
-      <input type="number" placeholder="Precio" name="price" /><br />
-      <input type="text" placeholder="Url Imagen" name="thumbnail" /><br />
+      <input type="text" placeholder="Nombre" name="name" required /><br />
+      <input type="number" placeholder="Precio" name="price" required /><br />
+      <input
+        type="text"
+        placeholder="Url Imagen"
+        name="thumbnail"
+        required
+      /><br />
       <input type="submit" value="Cargar producto" />
     </form>
 

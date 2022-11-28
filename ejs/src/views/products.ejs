@@ -16,7 +16,6 @@
   </head>
   <body>
     <button id="formButton">Cargar producto</button>
-    <!-- <ul> -->
     <table>
       <caption>
         Productos
@@ -27,11 +26,6 @@
         <th>Imagen</th>
       </tr>
       <% if (products.length > 0) { products.forEach(product => { %>
-      <!-- <li>
-        <p>Nombre: <%= product.name %></p>
-        <p>Price: <%= product.price %></p>
-        <img src="<%=product.thumbnail%>" width="50" />
-      </li> -->
       <tr>
         <td><%= product.name %></td>
         <td><%= product.price %></td>
@@ -41,10 +35,8 @@
       <tr>
         <td colspan="3">No hay productos</td>
       </tr>
-
       <% } %>
     </table>
-    <!-- </ul> -->
 
     <script>
       const formButton = document.getElementById("formButton");
