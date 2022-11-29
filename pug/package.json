@@ -1,6 +1,7 @@
 {
-  "name": "handlebars",
+  "name": "pug",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -9,11 +10,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
-    "express": "^4.18.2",
-    "express-handlebars": "^6.0.6",
-    "handlebars": "^4.7.7",
-    "multer": "^1.4.5-lts.1"
+    "pug": "^3.0.2"
   }
 }

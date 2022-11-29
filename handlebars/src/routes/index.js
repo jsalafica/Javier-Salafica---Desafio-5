@@ -1,88 +1,43 @@
 import { Router } from "express";
-import upload from "../libs/multer.js";
 
 const router = Router();
+const products = [
+  {
+    id: 1,
+    title: "Lapiz",
+    price: 125,
+    thumbnail:
+      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.quieninvento.org%2Fwp-content%2Fuploads%2F2013%2F06%2FLapiz.jpg&f=1&nofb=1",
+  },
+  {
+    id: 2,
+    title: "Regla",
+    price: 125,
+    thumbnail:
+      "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.maplusa.com%2Fwp-content%2Fuploads%2F2014%2F04%2F14042-800x900.jpg&f=1&nofb=1",
+  },
+  {
+    id: 3,
+    title: "Goma",
+    price: 125,
+    thumbnail:
+      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcentralpapeleria.es%2F4799-thickbox_default%2Fgoma-de-borrar-milan-caucho-840-tinta-y-lapiz-ud.jpg&f=1&nofb=1",
+  },
+];
 
-const products = [];
+router.get("/", (req, res) => {
+  res.render("productForm", {});
+});
 
-router
-  .get((req, res) => {
-    res.render("productForm.hbs");
-  })
-  .post(upload.single("thumbnail"), (req, res) => {
-    const { title, price } = req.body;
-    const image = req.file;
-    let newProductId;
-    if (products.length == 0) {
-      newProductId = 1;
-    } else {
-      newProductId = products[products.length - 1].id + 1;
-    }
+router.get("/product/:id", (req, res) => {
+  const { id } = req.params;
+  const product = products.find((product) => product.id === Number(id));
 
-    const newProduct = {
-      id: newProductId,
-      title,
-      price,
-      thumbnail: `http://localhost:8080/images/${image.originalname}`,
-    };
-    const response = {
-      status: "Created",
-      data: newProduct,
-    };
+  res.render("product", product);
+});
 
-    products.push(newProduct);
-
-    res.status(201).json(response);
-  });
-
-router
-  .route("/:id")
-  .get((req, res) => {
-    const { id } = req.params;
-
-    const product = products.find((product) => product.id === Number(id));
-
-    if (!product) {
-      const response = {
-        error: "Producto no encontrado",
-      };
-      res.status(404).json(response);
-    } else {
-      res.status(200).json(product);
-    }
-  })
-  .put(upload.single("thumbnail"), (req, res) => {
-    let { id } = req.params;
-    const image = req.file;
-    id = Number(id);
-
-    const { title, price } = req.body;
-    const thumbnail = `http://localhost:8080/images/${image.originalname}`;
-
-    const indexProductToUpdate = products.findIndex(
-      (product) => product.id === id
-    );
-
-    if (indexProductToUpdate === -1) {
-      return res.status(404).json({ error: "Producto no encontrado" });
-    }
-
-    products.splice(indexProductToUpdate, 1, { id, title, price, thumbnail });
-
-    res
-      .status(200)
-      .json({ status: "Updated", data: products[indexProductToUpdate] });
-  })
-  .delete((req, res) => {
-    const { id } = req.params;
-    const indexProductToDelete = products.findIndex(
-      (product) => product.id === Number(id)
-    );
-    if (indexProductToDelete === -1) {
-      return res.status(404).json({ error: "Producto no encontrado" });
-    }
-    products.splice(indexProductToDelete, 1);
-    res.status(200).json({ status: "Deleted" });
-  });
+router.get("/product", (req, res) => {
+  res.render("products", { products, hasAny: true });
+});
 
 export default router;

@@ -1,29 +1,27 @@
-import express, { json, urlencoded } from "express";
-import routs from "./routes/index.js";
+import express from "express";
+import { dirname, join } from "path";
 import { fileURLToPath } from "url";
-import { dirname } from "path";
-import path from "path";
+import { engine } from "express-handlebars";
+import routes from "./routes/index.js";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
+const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 
-app.use(json());
-app.use(urlencoded({ extended: true }));
+app.engine(
+  "hbs",
+  engine({
+    extname: ".hbs",
+    defaultLayout: join(__dirname, "/views/layouts/main.hbs"),
+    layoutsDir: join(__dirname, "/views/layouts"),
+    partialsDir: join(__dirname, "/views/partials"),
+  })
+);
 
 app.set("view engine", "hbs");
-app.set("views", __dirname + "/views");
+app.set("views", join(__dirname, "/views"));
 
-app.use("/", routs);
+app.use("/", routes);
 
-app.use("/images", express.static(path.join(__dirname + "/uploads")));
-app.use("/public", express.static(path.join(__dirname + "/html")));
-
-app.listen(8080, (error) => {
-  if (error) {
-    console.log("Error: " + error);
-  } else {
-    console.log("Server listening on port 8080");
-  }
+app.listen(8080, () => {
+  console.log("Server listening port 8080");
 });
