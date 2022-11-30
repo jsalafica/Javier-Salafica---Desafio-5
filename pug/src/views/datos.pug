@@ -1,0 +1,10 @@
+extends main.pug 
+
+block datos 
+    <button id="productButton">Ver productos</button>
+    h1="Carga de producto"
+    form(action= "/productos", method= "post")
+      <input type="text" name="name" placeholder="Nombre"><br>
+      <input type="number" name="price" placeholder="Precio"><br>
+      <input type="text" name="thumbnail" placeholder="Url Imagen"><br>
+      <input type="submit" value="Cargar producto" />
