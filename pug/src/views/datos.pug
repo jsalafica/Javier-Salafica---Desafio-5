@@ -1,12 +1,16 @@
 extends main.pug 
 
 block datos 
-  <button id="productButton">Ver productos</button>
+  //- <button id="productButton">Ver productos</button>
+  button(id="productButton", class='button', href='/productos') Ver productos
   h1="Carga de producto"
   form(action= "/productos", method= "post")
-    <input type="text" name="name" placeholder="Nombre"><br>
-    <input type="number" name="price" placeholder="Precio"><br>
-    <input type="text" name="thumbnail" placeholder="Url Imagen"><br>
+    <input type="text" name="name" placeholder="Nombre" required><br>
+    <input type="number" name="price" placeholder="Precio" required><br>
+    <input type="text" name="thumbnail" placeholder="Url Imagen" required><br>
     <input type="submit" value="Cargar producto" />
-  script
-    document.getElementById('productButton').addEventListener('click', function(){})
+  //- script
+  //-   document.getElementById('productButton').addEventListener('click', function () {})
+  block scripts  
+    script(src='datos.js')
+    script(type='application/javascript')
