@@ -5,14 +5,33 @@ html(lang="en")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title Productos
+        style.
+            table{
+                border: 1px solid black;
+                border-collapse: collapse
+            }
+            th{
+                border: 1px solid black
+            }
+            td{
+                border: 1px solid black
+            }
     body
-        h1 Productos
-        ul
-            if products.length
+        button(id="productButton", type ='button', onclick="location.href='/'") Cargar producto
+        p 
+        table 
+            caption Productos
+            tr 
+                th Nombre 
+                th Precio 
+                th Imagen
+                if products.length
                 each product in products
-                    li=product.name
-                    li=product.price
-                    li 
-                        img(src=product.thumbnail alt='' width='130px')
-            else
-                li No hay datos
+                    tr
+                        td=product.name
+                        td=product.price
+                        td(scope='row')
+                            img(src=product.thumbnail, alt='', width='50px')
+                else 
+                    tr
+                        td(colspan='3') No hay productos

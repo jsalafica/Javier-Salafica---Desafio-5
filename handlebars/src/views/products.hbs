@@ -1,10 +1,31 @@
-{{> nav}}
+{{!-- {{> nav}} --}}
 
-<h1>Tienda de productos</h1>
+{{!-- <h1>Tienda de productos</h1> --}}
+<button id="formButton">Cargar producto</button>
+<p></p>
+<table>
+  <caption>
+    Productos
+  </caption>
+    <tr>
+      <th>Nombre</th>
+      <th>Precio</th>
+      <th>Imagen</th>
+    </tr>
+
 {{#if hasAny}}
 {{#each products}}
-<h2>{{this.title}}</h2>
-<img src="{{this.thumbnail}}" alt="" width="100">
-<p>{{this.price}}</p>
+  <tr>
+    <td>{{this.name}}</td>
+    <td>{{this.price}}</td>
+    <td><img src="{{this.thumbnail}}" alt="" width="50"></td>
+  </tr>
 {{/each}}
 {{/if}}
+</table>
+<script>
+  const formButton = document.getElementById("formButton");
+  formButton.addEventListener("click", (event) => {
+    window.location = "/";
+  });
+</script>
